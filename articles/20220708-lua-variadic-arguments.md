@@ -2,7 +2,7 @@
 title: "Luaの可変長引数は式"
 emoji: "🐶"
 type: "tech"
-topics: ["Neovim", "Vim", "Lua", "Ruby", "init.lua"]
+topics: ["Neovim", "Vim", "Lua", "Ruby"]
 published: true
 ---
 
@@ -92,7 +92,7 @@ print_type(2, {hoge =  1, fuga =  1}) --> number
 
 可変長引数 **式** !!
 
-そう、Luaでは可変長引数は式だったんです。引数無しの場合、 `...` は戻り値無しの関数( `function f() end` )になりますし、引数が複数の場合は、 `...` は戻り値が多値の関数( `function f() return 1,2,"str" end` )になります。
+そう、Luaでは可変長引数は式だったんです。引数無しの場合、 `...` は戻り値無しの関数( `function f() end` )のようにになりますし、引数が複数の場合は、 `...` は戻り値が多値の関数( `function f() return 1,2,"str" end` )のようにになります。
 
 つまり、最初の例は以下のような形になります。
 ```lua
