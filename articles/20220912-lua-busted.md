@@ -8,15 +8,15 @@ published: true
 
 # bustedとは(vustedとは)
 
-NeovimのLuaプラグインのテストを行える[vusted](https://github.com/notomo/vusted)というツールがあることを最近知りました。
+Neovim の Lua プラグインのテストを行える[vusted](https://github.com/notomo/vusted)というツールがあることを最近知りました。
 
-`vusted`は[busted](https://github.com/lunarmodules/busted)というLuaのテストツールをNeovimでも動くようラップしたもので、`vusted`を使用するには`busted`の使い方を調べる必要があります。
+`vusted` は[busted](https://github.com/lunarmodules/busted)という Lua のテストツールを Neovim でも動くようラップしたもので、`vusted` を使用するには `busted` の使い方を調べる必要があります。
 
 https://github.com/lunarmodules/busted
 
-本記事ではこの`busted`の使い方を簡単に説明していきます。`busted`を使ってみたいけど日本語記事がないからよく分からん。という人向けの記事ですね。
+本記事ではこの `busted` の使い方を簡単に説明していきます。`busted` を使ってみたいけど日本語記事がないからよく分からん。という人向けの記事ですね。
 
-より詳しく確認したい人は[こちら](https://lunarmodules.github.io/busted/)の`busted`公式ドキュメントを確認してください。
+より詳しく確認したい人は[こちら](https://lunarmodules.github.io/busted/)の `busted` 公式ドキュメントを確認してください。
 
 ## Usage
 
@@ -54,13 +54,11 @@ describe("Test", function()
 end)
 ```
 
-`assert.XXXX`でテストを行い、`it`と`describe`にはどんなテストを行うのか記載します。`describe`はネストして使えるので、テスト対象をグループ分けすることができます。
+`assert.XXXX` でテストを行い、`it` と `describe` にはどんなテストを行うのか記載します。`describe` はネストして使えるので、テスト対象をグループ分けできます。
 
-基本的に`it`には 1つのassertのみを記載してください。複数のassertを記載することもできますが、テストが失敗した際にどのassertで失敗したかが出力結果から分かりづらくなってしまいます。
-
-ちなみに`describe`には`context`というエイリアスが存在します。同じく`it`にも`spec`というエイリアスが存在します。
-
-ではこのテストファイルを`busted`で実行してみましょう。
+基本的に `it` には 1 つの assert のみを記載してください。複数の assert を記載した場合、テストが失敗した際にどの assert で失敗したかが出力結果から分かりづらくなってしまいます。
+ちなみに `describe` には `context` というエイリアスが存在します。同じく `it` にも `spec` というエイリアスが存在します。
+ではこのテストファイルを `busted` で実行してみましょう。
 
 ```c
 rapan931@rHost:~/tmp/lua$ busted init_spec.lua  --output=TAP
@@ -78,13 +76,13 @@ ok 5 - Test non-numerical object is equal
 1..5
 ```
 
-1と0がイコールな訳はなくこちらのサンプルは極端すぎますが、`describe`,`it`に何をテストするのか記載しておくと、出力されたメッセージを見て何が成功して何が失敗したか分かりやすくなります。
+1 と 0 がイコールな訳はなくこちらのサンプルは極端すぎますが、`describe`,`it` に何をテストするのか記載しておくと、出力されたメッセージを見て何が成功して何が失敗したか分かりやすくなります。
 
-コマンド実行時に`--output=TAP`を指定して出力フォーマットを変更していますが、`TAP`以外にも`utfTerminal(これがdefault)`や`json`等用意されています。出力フォーマットはカスタムすることも可能なので、好みの出力が用意されていない場合は独自の出力に変更することも可能です。
+コマンド実行時に `--output=TAP` を指定して出力フォーマットを変更していますが、`TAP` 以外にも `utfTerminal(これがdefault)` や `json` 等用意されています。出力フォーマットはカスタム可能なので、好みの出力が用意されていない場合は独自の出力に変更できます。
 
 ## before_each, after_each, setup, teardown
 
-`describe`,`it`ブロック内で`before_each`,`after_each`を使用し対象ブロック内のテスト前後に実行する処理を設定できます。また、`setup`,`teardown`を呼び出すと対象ブロックの最初と最後に実行する処理を設定できます。
+`describe`,`it` ブロック内で `before_each`,`after_each` を使用し対象ブロック内のテスト前後に実行する処理を設定できます。また、`setup`,`teardown` を呼び出すと対象ブロックの最初と最後に実行する処理を設定できます。
 
 ```lua
 describe("describe 1", function()
@@ -141,7 +139,7 @@ teardown 1
 
 ## tag
 
-`describe`,`it`にタグをつけて実行するテストを絞りこむことができます
+`describe`,`it` にタグをつけて実行するテストを絞りこむことができます
 ```lua
 describe("a test #tag", function()
   -- tests go here
@@ -154,16 +152,16 @@ describe("a nested block #another", function()
 end)
 ```
 
-`busted init_spec.lua -t tag`で`#tag`が付いたブロックのみをテストすることができます。
-逆に`busted init_spec.lua --exclude-tag tag`で`#tag`が付いたブロックのテストを除外することもできます。
+`busted init_spec.lua -t tag` で `#tag` が付いたブロックのみをテストできます。
+逆に `busted init_spec.lua --exclude-tag tag` で `#tag` が付いたブロックのテストを除外できます。
 
 ## shuffle
 
-`busted --shuffle`で テストの実行順序をランダムにすることができます。一部テストのみ記載順通りに実行したい場合は対象ブロック内に`randomize(false)`を記載してください
+`busted --shuffle` でテストの実行順序をランダムにできます。一部テストのみ記載順通りに実行したい場合は対象ブロック内に `randomize(false)` を記載してください
 
 ## assert
 
-assertですが、色々あります
+assert ですが、色々あります
 
 ```lua
 describe("assert list", function()
@@ -177,7 +175,7 @@ describe("assert list", function()
     assert.is_falsy(nil)
 
     assert.are.equal(1, 1)
-    assert.is.equal(1, 1) -- areはisのエイリアス。is_equal, are_iqualも同じ結果になる
+    assert.is.equal(1, 1) -- areはisのエイリアス。is_equal, are_equalも同じ結果になる
 
     assert.is_not_true(false)
     assert.are_not_equals(1, "1") -- 否定にはnotを付ける
@@ -193,7 +191,7 @@ end)
 ```
 
 独自のチェック関数の追加もできます。
-例として文字列の先頭1文字目が英字であることを確認するassertを追加してみましょう
+例として文字列の先頭 1 文字目が英字であることを確認する assert を追加してみましょう
 
 ```lua
 local say = require("say")
@@ -221,11 +219,11 @@ describe("test", function()
 end)
 ```
 
-サクッと独自のassertを追加することができます。
+サクッと独自の assert を追加できます。
 
-ちなみに、bustedにはlanguage packが存在し、これを使用すれば`busted`実行時の出力メッセージを日本語に変更することができます。
+ちなみに、busted には language pack が存在し、これを使用すれば `busted` 実行時の出力メッセージを日本語に変更できます。
 日本語用ファイルの中身見たのですが、面白いメッセージがいくつか格納されていました。
-以下に変更後`busted --lang=ja init_spec.lua`でテストを実行してみてください。シャレオツなエラーメッセージを見ることができますので、気になる人は試してみてください。
+以下に変更後 `busted --lang=ja init_spec.lua` でテストを実行してみてください。シャレオツなエラーメッセージを見ることができますので、気になる人は試してみてください。
 
 ```lua
 say:set("assertion.start_witch_alphabet.positive", require('busted.languages.ja').failure_messages[6] .. ": %s") -- busted.language.jaのメッセージを使用
@@ -244,13 +242,13 @@ end)
 
 ## spy, mock, stub
 
-`spy`,`stub`を使用して関数に対して以下をテストすることができます
-- 関数が呼び出されたか否か
+`spy`,`stub` を使用すると関数に対して以下をテストできます
+- 関数が呼び出されたか
 - 何度関数が呼び出されたか
 - 関数呼び出し時に渡された引数の値は期待通りか
 
-`spy`は対象の関数をそのまま呼び出しますが、`stub`の場合実際には関数が呼び出されません。
-`stub`のサンプルを記載します。
+`spy` は対象の関数をそのまま呼び出しますが、`stub` の場合実際には関数が呼び出されません。
+`stub` のサンプルを記載します。
 
 ```lua
 describe("stubs", function()
@@ -270,33 +268,34 @@ describe("stubs", function()
 end)
 ```
 
-`mock` は`spy`, `stub`どちらにも切り替えられような関数のようです。ここは実際に関数を呼び出したいが、この先は呼び出したくない。。。というような`spy`から`stub`に切り替えたいようなケースで`mock`を使えるかもしれません(正直なところ`mock`をいつ使うのかよく分かっていない)
+`mock` は `spy`, `stub` どちらにも切り替えられような関数のようです。ここは実際に関数を呼び出したいが、この先は呼び出したくない。。。というような `spy` から `stub` に切り替えたいようなケースで `mock` を使えるかもしれません(正直なところ `mock` をいつ使うのかよく分かっていない)
 
 ## private関数
 
-テストできません。
-個人的にはpublicな関数のテストでprivateな関数も使用されているので不要と思いますが、以下のような形でどうにか対応することができるようです。
+個人的には public な関数のテストで private な関数も使用されため不要と考えていますが、以下のような形で対応無理やりテストできます。
 
 ```lua
-local mymodule = {}
-function mymodule:display()
+local my_module = {}
+local private_element = {"this", "is", "private"}
+
+function my_module:display()
   print(string.concat(private_element, " "))
 end
 
 -- export locals for test
 if _TEST then
   -- setup test alias for private elements using a modified name
-  mymodule._private_element = private_element
+  my_module._private_element = private_element
 end
 
-return mymodule
+return my_module
 ```
 
 ## 終わりに
 
-bustedについてはシンプルなテストツールで覚えることが少なく割と簡単に使い始めることが出来ました。是非使ってみてください。
+busted についてはシンプルなテストツールで覚えることが少なく割と簡単に使い始めることが出来ました。是非使ってみてください。
 
-また、冒頭でも触れましたがNeovimのLuaプラグインのテスト用にbustedをラップした`vusted`というテストツールも存在します。Luaプラグインのテストを書きたい！という人は作者さんがzennでvustedに関する記事記載されているので是非こちらも見てみてください。
+また、冒頭でも触れましたが Neovim の Lua プラグインのテスト用に busted をラップした `vusted` というテストツールも存在します。Lua プラグインのテストを書きたい！という人は作者さんが zenn で vusted に関する記事記載されているので是非こちらも見てみてください。
 
 https://zenn.dev/notomo/articles/neovim-lua-plugin-testing
 
